@@ -2,7 +2,12 @@
 
 ## ABOUT
 
-- The goal of the project was to detect features from various YouTube thumbnails, build subsequent hypothesis and test their significance to provide profitable recommendations to potential digital content creators.
+The goal of the project was to detect features from various YouTube thumbnails, build subsequent hypothesis and test their significance to provide profitable recommendations to potential digital content creators.
+
+Following is an example of a thumbnail that was used:
+![6EN7A23YtHI](https://user-images.githubusercontent.com/69982245/161476440-a494b83c-c997-4eb4-9511-a67684df4c16.jpg)
+
+## STEPS
 
 - Majority of the image-based features were extracted by using Google Vision. These include things like - area_covered_by_faces, number_of_objects, number_of_people and so on. Textual data was also extracted from these images and put through NLP techniques. This gave access to further features such as sentiments, emoji_count and so on. Lastly, additional techniques such as KMeans, HoughLines wer3e used to detect face color category, chyron bands and so on. 
 
@@ -17,7 +22,9 @@
 Following are the final decision trees that I got for All variables, Caption and Thumbnail variables
 
 ![All Variables](https://user-images.githubusercontent.com/69982245/161476198-4263bdb9-6b86-4bf2-8535-e6f74166c50f.png)
+
 ![Caption Variables](https://user-images.githubusercontent.com/69982245/161476235-e0460a2b-17be-47a1-9747-f02bb25cc840.png)
+
 ![Thumbnail Variables](https://user-images.githubusercontent.com/69982245/161476241-3bb7f3fd-8b26-4a64-bafd-c7e4cb0df9b6.png)
 
 
