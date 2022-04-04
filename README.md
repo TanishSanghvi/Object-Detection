@@ -8,9 +8,18 @@
 
 - Having built our corpus of features, various hypothesis were developed and tested using ANOVA and Pearson's Correlation. These tests were developed to build low-level insights such as significane of hashtags, emojis, skin color of the faces and so on. 
 
-- The end goal was to build a recommendation engine as well that digital content creators could refer to for digital decisions. As such I decided to create a Decision Tree model that would predict the performance (impressions/engagements) based on various rules. In order to reduce the dimensionality of the features I used an ExtraTreesClassifier which gave the best features in a model. 
+- The end goal was to build a recommendation engine as well that digital content creators could refer to for digital decisions. As such I decided to create a Decision Tree model that would predict the performance (impressions/engagements) based on various rules. In order to reduce the dimensionality of the features I used an ExtraTreesClassifier which gave the best features in a model. Further, separate decision trees were built for just caption and thumbnail variables in order to get further information
 
 - I am also in progress to perform market basket analysis on these features and thus get an idea on which kind of features work well together. 
+
+## RESULTS
+
+Following are the final decision trees that I got for All variables, Caption and Thumbnail variables
+
+![All Variables](https://user-images.githubusercontent.com/69982245/161476198-4263bdb9-6b86-4bf2-8535-e6f74166c50f.png)
+![Caption Variables](https://user-images.githubusercontent.com/69982245/161476235-e0460a2b-17be-47a1-9747-f02bb25cc840.png)
+![Thumbnail Variables](https://user-images.githubusercontent.com/69982245/161476241-3bb7f3fd-8b26-4a64-bafd-c7e4cb0df9b6.png)
+
 
 ## BUILT WITH / MODULES USED
 
