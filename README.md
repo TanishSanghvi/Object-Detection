@@ -1,14 +1,12 @@
 # Object-Detection
 
-Detect features from various YouTube thumbnails to build and test various hypothesis
-
 ## ABOUT
 
-The goal of the project is to create an unsupervised clustering software that can help companies/stakeholders understand the taste/preferences of their target audience.
+The goal of the project was to detect features from various YouTube thumbnails, build subsequent hypothesis and test their significance to provide profitable recommendations to potential digital content creators.
 
-YouTube API is used to extract information relevant to users in a particular domain post which  data processing, NLP tools (TF-IDF, N-grams) and clustering modules are applied to generate insightful wordclouds
+Majority of the image-based features were extracted by using Google Vision. These include things like - area_covered_by_faces, number_of_objects, number_of_people and so on. Textual data was also extracted from these images and put through NLP techniques. This gave access to further features such as sentiments, emoji_count and so on. Lastly, additional techniques such as KMeans, HoughLines wer3e used to detect face color category, chyron bands and so on. 
 
-The final results and graphs and insights are present in 'User Hack Report.docx'
+
 
 ## BUILT WITH / MODULES USED
 
@@ -25,4 +23,4 @@ Built with Python 3.7. Modules used:
 ## USE CASES
  - By leveraging the ability to detect features in images/thumbnails and test their significance, content creators can get a better picture of what works (drives engagements/impressions) and what does not.
  - A decision tree with its rules can also give a blueprint of the list of features that a thumbnail can/should utilise
- - By building a market basket analysis on top of this, one can also see what kind of features work well.
+ - By building a market basket analysis on top of this, one can also see what kind of features work well together and what don't.
