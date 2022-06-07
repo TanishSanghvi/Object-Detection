@@ -19,7 +19,7 @@ Following is an example of a thumbnail that was used:
 
 ## RESULTS
 
-Following are the final decision trees that I got for All variables, Caption and Thumbnail variables
+Following are the final decision trees that I got for All variables, Caption variables and Thumbnail variables
 
 ![All Variables](https://user-images.githubusercontent.com/69982245/161476198-4263bdb9-6b86-4bf2-8535-e6f74166c50f.png)
 
