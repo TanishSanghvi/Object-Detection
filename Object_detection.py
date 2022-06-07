@@ -287,28 +287,29 @@ def get_emotion(face):
     return emotion_dict[max(emotions_band)]
 
 analyzer = SentimentIntensityAnalyzer()
-mtv_wild_n_out = pandas.read_excel(ctr_video_file)
 
-mtv_wild_n_out['CTR day3'] *= 100 
-mtv_wild_n_out['CTR day7'] *= 100
-mtv_wild_n_out['date_published'] = mtv_wild_n_out['date_published'].apply(lambda x : x.strftime('%Y-%m-%d')) 
+df = pandas.read_excel(ctr_video_file)
+
+df['CTR day3'] *= 100 
+df['CTR day7'] *= 100
+df['date_published'] = df['date_published'].apply(lambda x : x.strftime('%Y-%m-%d')) 
 
 stop_words=set(stopwords.words('english'))
 my_punctuation = '!"$%&\'()*+,-./:;<=>?[\\]^`{|}~•'
 lemmatizer = WordNetLemmatizer()
 
 
-mtv_wild_n_out2=pandas.DataFrame()
+df2=pandas.DataFrame()
 
-for index, row in mtv_wild_n_out.iterrows():
-    print('{}/{}'.format(index,len(mtv_wild_n_out)))
+for index, row in df.iterrows():
+    print('{}/{}'.format(index,len(df)))
     img_id = row['video_id']
-    mtv_wild_n_out2.loc[index,'video_id'] = img_id
-    title = mtv_wild_n_out.loc[index,'video_title_text']
+    df2.loc[index,'video_id'] = img_id
+    title = df.loc[index,'video_title_text']
     print('\n{}.jpg - {}'.format(img_id,title))
     img_path=img_directory+img_id+'.jpg'
     
-    mtv_wild_n_out.loc[index,'thumbnail_url']="https://i.ytimg.com/vi/"+img_id+"/maxresdefault.jpg"
+    df.loc[index,'thumbnail_url']="https://i.ytimg.com/vi/"+img_id+"/maxresdefault.jpg"
 
     face_output_filename = output_directory+'Faces/'+img_id+'.jpg'
     objects_output_filename = output_directory+'Objects/'+img_id+'.jpg'
@@ -316,33 +317,33 @@ for index, row in mtv_wild_n_out.iterrows():
     logo_output_filename = output_directory+'Logo/'+img_id+'.jpg'
     
     sentiment = analyzer.polarity_scores(title)
-    mtv_wild_n_out.loc[index,'title_text_sentiment_net'] = round(sentiment['compound'],round_to_digits)
-    mtv_wild_n_out.loc[index,'title_text_sentiment_pn'] = round(sentiment['pos'] * sentiment['neg'],round_to_digits) 
-    mtv_wild_n_out.loc[index,'title_text_sentiment_pos'] = round(sentiment['pos'],round_to_digits)
-    mtv_wild_n_out.loc[index,'title_text_sentiment_neg'] = round(sentiment['neg'],round_to_digits)
-    mtv_wild_n_out.loc[index,'title_text_sentiment_neu'] = round(sentiment['neu'],round_to_digits)
+    df.loc[index,'title_text_sentiment_net'] = round(sentiment['compound'],round_to_digits)
+    df.loc[index,'title_text_sentiment_pn'] = round(sentiment['pos'] * sentiment['neg'],round_to_digits) 
+    df.loc[index,'title_text_sentiment_pos'] = round(sentiment['pos'],round_to_digits)
+    df.loc[index,'title_text_sentiment_neg'] = round(sentiment['neg'],round_to_digits)
+    df.loc[index,'title_text_sentiment_neu'] = round(sentiment['neu'],round_to_digits)
     
     sentiment = analyzer.polarity_scores(title.upper())
-    mtv_wild_n_out.loc[index,'title_upper_text_sentiment_net'] = round(sentiment['compound'],round_to_digits)
-    mtv_wild_n_out.loc[index,'title_upper_text_sentiment_pn'] = round(sentiment['pos'] * sentiment['neg'],round_to_digits) 
-    mtv_wild_n_out.loc[index,'title_upper_text_sentiment_pos'] = round(sentiment['pos'],round_to_digits)
-    mtv_wild_n_out.loc[index,'title_upper_text_sentiment_neg'] = round(sentiment['neg'],round_to_digits)
-    mtv_wild_n_out.loc[index,'title_upper_text_sentiment_neu'] = round(sentiment['neu'],round_to_digits)
+    df.loc[index,'title_upper_text_sentiment_net'] = round(sentiment['compound'],round_to_digits)
+    df.loc[index,'title_upper_text_sentiment_pn'] = round(sentiment['pos'] * sentiment['neg'],round_to_digits) 
+    df.loc[index,'title_upper_text_sentiment_pos'] = round(sentiment['pos'],round_to_digits)
+    df.loc[index,'title_upper_text_sentiment_neg'] = round(sentiment['neg'],round_to_digits)
+    df.loc[index,'title_upper_text_sentiment_neu'] = round(sentiment['neu'],round_to_digits)
 
-    mtv_wild_n_out.loc[index,'punctuation_marks'] = sum([1 for i in punctuations_tracked if i in title])
-    mtv_wild_n_out.loc[index,'title_text_length'] = len(title)
+    df.loc[index,'punctuation_marks'] = sum([1 for i in punctuations_tracked if i in title])
+    df.loc[index,'title_text_length'] = len(title)
     
     emoji_count = 0
     for emoji , description in UNICODE_EMOJI.items():
         if title.count(emoji) :
             description = description.replace(':','')
-            mtv_wild_n_out2.loc[index,'emoji_'+description] = title.count(emoji)
+            df2.loc[index,'emoji_'+description] = title.count(emoji)
             emoji_count += title.count(emoji)
     
-    mtv_wild_n_out.loc[index,'emojis_count'] = emoji_count 
+    df.loc[index,'emojis_count'] = emoji_count 
     
     sentence = clean_caption(title)
-    for word in sentence.split(): mtv_wild_n_out2.loc[index,word] = sentence.count(word)
+    for word in sentence.split(): df2.loc[index,word] = sentence.count(word)
 
     try:
         labels_detected = dill.load(file = open(responses_folder+'labels/{}.pkl'.format(img_id),'rb'))
@@ -350,7 +351,7 @@ for index, row in mtv_wild_n_out.iterrows():
         labels_detected = [json.loads(MessageToJson(label)) for label in label_detection(img_path)]
         dill.dump(labels_detected, file = open(responses_folder+'labels/{}.pkl'.format(img_id),'wb'))
     
-    for label in labels_detected: mtv_wild_n_out2.loc[index,'label_'+label['description']] = 1 
+    for label in labels_detected: df2.loc[index,'label_'+label['description']] = 1 
           
     im = Image.open(img_path)
     draw = ImageDraw.Draw(im)
@@ -415,24 +416,24 @@ for index, row in mtv_wild_n_out.iterrows():
         
         face_count +=1
     
-    mtv_wild_n_out.loc[index,'number_of_faces'] = face_count
-    mtv_wild_n_out.loc[index,'emotion_joy'] = emotions.count('Joy')
-    mtv_wild_n_out.loc[index,'emotion_sorrow'] = emotions.count('Sorrow')
-    mtv_wild_n_out.loc[index,'emotion_surprised'] = emotions.count('Surprise')
-    mtv_wild_n_out.loc[index,'emotion_anger'] = emotions.count('Anger')
-    mtv_wild_n_out.loc[index,'emotion_neutral'] = emotions.count('Neutral')
-    mtv_wild_n_out.loc[index,'Color_of_skin 1'] = colors_detected.count('Tone 1')
-    mtv_wild_n_out.loc[index,'Color_of_skin 2'] = colors_detected.count('Tone 2')
-    mtv_wild_n_out.loc[index,'Color_of_skin 3'] = colors_detected.count('Tone 3')
-    mtv_wild_n_out.loc[index,'area_covered_by_faces'] =  round(area_covered_face,0)
-    mtv_wild_n_out.loc[index,'area_covered_by_eyes'] =  round(area_covered_eyes,0)
-    mtv_wild_n_out.loc[index,'face_area_covered_image'] =  percent_covered
-    mtv_wild_n_out.loc[index,'eye_area_covered_face'] = eye_area_covered_face
-    mtv_wild_n_out.loc[index,'eye_area_covered_image'] = eye_area_covered_image
-    mtv_wild_n_out.loc[index,'eye_count'] = eye_count
-    mtv_wild_n_out.loc[index,'area_cvg_eye_over_face'] = round(area_covered_eyes/face_count, round_to_digits) if face_count else 0
-    mtv_wild_n_out.loc[index,'avg_area_covered_by_a_face'] = round(area_covered_face/face_count , round_to_digits) if face_count else 0
-    mtv_wild_n_out.loc[index,'avg_area_covered_by_an_eye'] = round(area_covered_eyes/eye_count , round_to_digits) if eye_count else 0
+    df.loc[index,'number_of_faces'] = face_count
+    df.loc[index,'emotion_joy'] = emotions.count('Joy')
+    df.loc[index,'emotion_sorrow'] = emotions.count('Sorrow')
+    df.loc[index,'emotion_surprised'] = emotions.count('Surprise')
+    df.loc[index,'emotion_anger'] = emotions.count('Anger')
+    df.loc[index,'emotion_neutral'] = emotions.count('Neutral')
+    df.loc[index,'Color_of_skin 1'] = colors_detected.count('Tone 1')
+    df.loc[index,'Color_of_skin 2'] = colors_detected.count('Tone 2')
+    df.loc[index,'Color_of_skin 3'] = colors_detected.count('Tone 3')
+    df.loc[index,'area_covered_by_faces'] =  round(area_covered_face,0)
+    df.loc[index,'area_covered_by_eyes'] =  round(area_covered_eyes,0)
+    df.loc[index,'face_area_covered_image'] =  percent_covered
+    df.loc[index,'eye_area_covered_face'] = eye_area_covered_face
+    df.loc[index,'eye_area_covered_image'] = eye_area_covered_image
+    df.loc[index,'eye_count'] = eye_count
+    df.loc[index,'area_cvg_eye_over_face'] = round(area_covered_eyes/face_count, round_to_digits) if face_count else 0
+    df.loc[index,'avg_area_covered_by_a_face'] = round(area_covered_face/face_count , round_to_digits) if face_count else 0
+    df.loc[index,'avg_area_covered_by_an_eye'] = round(area_covered_eyes/eye_count , round_to_digits) if eye_count else 0
     im.save(face_output_filename)
     
     im = Image.open(img_path)
@@ -470,20 +471,20 @@ for index, row in mtv_wild_n_out.iterrows():
     print('Text found on image : {}'.format(image_text))
     quadrants_present_in = [q for quadrant in list(dict.fromkeys(quadrants_present_in)) for q in quadrant.split(',')]
     quadrants_present_in = [q for q in list(dict.fromkeys(quadrants_present_in))]
-    mtv_wild_n_out.loc[index,'Image_text'] = image_text 
-    mtv_wild_n_out.loc[index,'text_in_Q1'] = 1 if 'Q1' in quadrants_present_in else 0
-    mtv_wild_n_out.loc[index,'text_in_Q2'] = 1 if 'Q2' in quadrants_present_in else 0
-    mtv_wild_n_out.loc[index,'text_in_Q3'] = 1 if 'Q3' in quadrants_present_in else 0
-    mtv_wild_n_out.loc[index,'text_in_Q4'] = 1 if 'Q4' in quadrants_present_in else 0
-    mtv_wild_n_out.loc[index,'area_covered_by_text'] =  round(area_covered,0)
-    mtv_wild_n_out.loc[index,'area_covered_text_of_image'] =  percent_covered
-    mtv_wild_n_out.loc[index,'word_count_image_text'] =  len(image_text.split(' '))
-    mtv_wild_n_out.loc[index,'avg_area_covered_by_a_word'] = round(area_covered/len(image_text.split(' ')),round_to_digits) if len(image_text.split(' ')) else 0
-    mtv_wild_n_out.loc[index,'img_text_str_len'] =  len(image_text)
+    df.loc[index,'Image_text'] = image_text 
+    df.loc[index,'text_in_Q1'] = 1 if 'Q1' in quadrants_present_in else 0
+    df.loc[index,'text_in_Q2'] = 1 if 'Q2' in quadrants_present_in else 0
+    df.loc[index,'text_in_Q3'] = 1 if 'Q3' in quadrants_present_in else 0
+    df.loc[index,'text_in_Q4'] = 1 if 'Q4' in quadrants_present_in else 0
+    df.loc[index,'area_covered_by_text'] =  round(area_covered,0)
+    df.loc[index,'area_covered_text_of_image'] =  percent_covered
+    df.loc[index,'word_count_image_text'] =  len(image_text.split(' '))
+    df.loc[index,'avg_area_covered_by_a_word'] = round(area_covered/len(image_text.split(' ')),round_to_digits) if len(image_text.split(' ')) else 0
+    df.loc[index,'img_text_str_len'] =  len(image_text)
     
     im.save(text_output_filename)
 
-    mtv_wild_n_out.loc[index,'chyron_present'] = get_chyron_band(img_path)
+    df.loc[index,'chyron_present'] = get_chyron_band(img_path)
     
     
     im = Image.open(img_path)
@@ -514,21 +515,21 @@ for index, row in mtv_wild_n_out.iterrows():
                   fill='#000000',font=ImageFont.truetype('arial.ttf', 20))
         area_covered_by_logo += get_percent_covered(im,logo_box)
         quadrants_present_in.append(get_quadrant(im, logo_box))
-        mtv_wild_n_out2.loc[index,'logo_'+logo['description']] = 1
+        df2.loc[index,'logo_'+logo['description']] = 1
         if str(logo['description']).lower() in title.lower() : logo_in_title.append(1)
         logo_count+=1
     
     quadrants_present_in = [q for quadrant in list(dict.fromkeys(quadrants_present_in)) for q in quadrant.split(',')]
     quadrants_present_in = [q for q in list(dict.fromkeys(quadrants_present_in))] 
-    mtv_wild_n_out.loc[index,'logo_in_Q1'] = 1 if 'Q1' in quadrants_present_in else 0
-    mtv_wild_n_out.loc[index,'logo_in_Q2'] = 1 if 'Q2' in quadrants_present_in else 0
-    mtv_wild_n_out.loc[index,'logo_in_Q3'] = 1 if 'Q3' in quadrants_present_in else 0
-    mtv_wild_n_out.loc[index,'logo_in_Q4'] = 1 if 'Q4' in quadrants_present_in else 0
+    df.loc[index,'logo_in_Q1'] = 1 if 'Q1' in quadrants_present_in else 0
+    df.loc[index,'logo_in_Q2'] = 1 if 'Q2' in quadrants_present_in else 0
+    df.loc[index,'logo_in_Q3'] = 1 if 'Q3' in quadrants_present_in else 0
+    df.loc[index,'logo_in_Q4'] = 1 if 'Q4' in quadrants_present_in else 0
     
-    mtv_wild_n_out.loc[index,'area_covered_by_logo'] = round(area_covered_by_logo,0)
-    mtv_wild_n_out.loc[index,'logo_in_title'] = sum(logo_in_title)
-    mtv_wild_n_out.loc[index,'logo_count'] = logo_count
-    mtv_wild_n_out.loc[index,'avg_area_covered_per_logo'] = round(area_covered_by_logo/logo_count, round_to_digits) if logo_count else 0
+    df.loc[index,'area_covered_by_logo'] = round(area_covered_by_logo,0)
+    df.loc[index,'logo_in_title'] = sum(logo_in_title)
+    df.loc[index,'logo_count'] = logo_count
+    df.loc[index,'avg_area_covered_per_logo'] = round(area_covered_by_logo/logo_count, round_to_digits) if logo_count else 0
     
     im.save(logo_output_filename)
     
@@ -565,13 +566,13 @@ for index, row in mtv_wild_n_out.iterrows():
         area_covered_by_objects += get_percent_covered(im,object_box)
         mtv_wild_n_out2.loc[index,'object_'+object['name']] = 1
         
-        if str(object['name']).lower() in title.lower(): mtv_wild_n_out.loc[index,'object_in_title'] = 1
+        if str(object['name']).lower() in title.lower(): df.loc[index,'object_in_title'] = 1
         object_count+=1
     
-    mtv_wild_n_out.loc[index,'area_covered_by_objects'] = round(area_covered_by_objects, 0)
-    mtv_wild_n_out.loc[index,'object_count'] = object_count
-    mtv_wild_n_out.loc[index,'avg_area_cvg_objects'] = round(area_covered_by_objects/object_count,round_to_digits) if object_count else 0
-    mtv_wild_n_out.loc[index,'objects_in_title'] = sum(objects_in_title)
+    df.loc[index,'area_covered_by_objects'] = round(area_covered_by_objects, 0)
+    df.loc[index,'object_count'] = object_count
+    df.loc[index,'avg_area_cvg_objects'] = round(area_covered_by_objects/object_count,round_to_digits) if object_count else 0
+    df.loc[index,'objects_in_title'] = sum(objects_in_title)
     
     im.save(objects_output_filename)
     
@@ -586,15 +587,15 @@ for index, row in mtv_wild_n_out.iterrows():
     for entity in entities_detected['webEntities']:
         if not entity.get('score','') : continue
         if entity['score'] < web_detection_threshold: continue
-        mtv_wild_n_out2.loc[index,'talent_'+entity['description']] = 1
+        df2.loc[index,'talent_'+entity['description']] = 1
         talent_in_text.append(sum([1 for word in str(entity['description']).split() if word.lower() in title.lower()]))
         talent_count+=1
         
     
-    mtv_wild_n_out.loc[index,'title_text_num_talent'] = 1 if sum(talent_in_text)>1 else 0
-    mtv_wild_n_out.loc[index,'talent_count'] = talent_count
+    df.loc[index,'title_text_num_talent'] = 1 if sum(talent_in_text)>1 else 0
+    df.loc[index,'talent_count'] = talent_count
 #    mtv_wild_n_out.loc[index,'title_text_talent_match_thumb_pos'] = 
 
-mtv_wild_n_out_final = pandas.merge(mtv_wild_n_out,mtv_wild_n_out2, how='left' , on ='video_id')
-mtv_wild_n_out_final.to_excel(output_directory+'CTR3and7_WNO_features.xlsx',index=False)
+df_final = pandas.merge(df,df2, how='left' , on ='video_id')
+df_final.to_excel(output_directory+'CTR3and7_WNO_features.xlsx',index=False)
     
