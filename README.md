@@ -13,7 +13,9 @@ Following is an example of a thumbnail that was used:
 
 - Having built our corpus of features, various hypothesis were developed and tested using ANOVA and Pearson's Correlation. These tests were developed to build low-level insights such as significane of hashtags, emojis, skin color of the faces and so on. 
 
-- The end goal was to build a recommendation engine as well that digital content creators could refer to for digital decisions. As such I decided to create a Decision Tree model that would predict the performance (impressions/engagements) based on various rules. In order to reduce the dimensionality of the features I used an ExtraTreesClassifier which gave the best features in a model. Further, separate decision trees were built for just caption and thumbnail variables in order to get further information
+- The end goal was to build a recommendation engine as well that digital content creators could refer to for digital decisions. As such I decided to create a Decision Tree model that would predict the performance (impressions/engagements) based on various rules. In order to reduce the dimensionality of the features I used an ExtraTreesClassifier which gave the best features in a model. Further, separate decision trees were built for just caption and thumbnail variables in order to get further information. Following are examples of some insights that we garnered from the Decision Trees below
+ - The 1st Decision Tree shows that videos with use of '#' as well as mention of 'sneak peek' tend to perform better in terms of CTR
+ - Similarly, the 2nd Decision Tree shows that videos with '#' as well as with a positive sentiments get higher CTR
 
 - I am also in progress to perform market basket analysis on these features and thus get an idea on which kind of features work well together. 
 
