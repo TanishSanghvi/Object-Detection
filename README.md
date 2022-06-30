@@ -2,7 +2,8 @@
 
 ## ABOUT
 
-The goal of the project was to detect features from various YouTube thumbnails and captions in order to build and test relevant hypothesis as well as to create a framework that can help drive decision-making for digitial content creators. The framework would give an overview/blueprint of the various features employed in the videos, the associations between them and rules to combine them for driving higher engagement
+The project's objective was to identify attributes from diverse YouTube subtitles and thumbnails in order to develop and test pertinent hypotheses as well as a framework that can guide decision-making for those who generate digital content. 
+The framework would provide a summary or blueprint of the many features used in the videos, their relationships, and guidelines for combining them to increase engagement.
 
 
 Following is an example of a thumbnail that was used:
