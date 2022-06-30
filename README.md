@@ -52,5 +52,5 @@ Built with Python 3.7. Modules used:
 
 ## USE CASES
  - By leveraging the ability to detect features in images/thumbnails and test their significance, content creators can get a better picture of what works (drives engagements/impressions) and what does not.
- - A decision tree with its rules can also give a blueprint of the list of features that a thumbnail can/should utilise
- - By building a market basket analysis on top of this, one can also see what kind of features work well together and what don't.
+ - A decision tree with its rules can also give a blueprint of the list of features that a thumbnail can/should utilise to drive high click-through rates
+ - By building a market basket analysis on top of this, one can see what kind of features work well together and what don't, thus making optimal marketing decisions
