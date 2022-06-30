@@ -2,7 +2,8 @@
 
 ## ABOUT
 
-The goal of the project was to detect features from various YouTube thumbnails, build subsequent hypothesis and test their significance to provide profitable recommendations to potential digital content creators.
+The goal of the project was to detect features from various YouTube thumbnails and captions in order to build and test relevant hypothesis as well as to create a framework that can help drive decision-making for digitial content creators. The framework would give an overview/blueprint of the various features employed in the videos, the associations between them and rules to combine them for driving higher engagement
+
 
 Following is an example of a thumbnail that was used:
 ![6EN7A23YtHI](https://user-images.githubusercontent.com/69982245/161476440-a494b83c-c997-4eb4-9511-a67684df4c16.jpg)
