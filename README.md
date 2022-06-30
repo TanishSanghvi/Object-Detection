@@ -12,7 +12,7 @@ Following is an example of a thumbnail that was used:
 - Feature Extraction / Engineering
      - Majority of the image-based features were extracted by using Google Vision. These include things like - area_covered_by_faces, number_of_objects, number_of_people and so on. 
      - Textual data was also extracted from these images and put through NLP techniques. This gave access to further features such as sentiments, emoji_count and so on. 
-     - Lastly, additional techniques such as KMeans, HoughLines wer3e used to detect face color category, chyron bands and so on. 
+     - Lastly, additional techniques such as KMeans, HoughLines were used to detect face color category, chyron bands and so on. 
 
 - Hypothesis Testing
      - Having built our corpus of features, various hypothesis were developed and tested using ANOVA and Pearson's Correlation. 
@@ -29,7 +29,7 @@ Following is an example of a thumbnail that was used:
 
 ## RESULTS
 
-Following are the final decision trees that I got for All variables, Caption variables and Thumbnail variables
+Following are the final decision trees for All (Caption + Thumbnail) variables, Caption variables and Thumbnail variables:
 
 ![All Variables](https://user-images.githubusercontent.com/69982245/161476198-4263bdb9-6b86-4bf2-8535-e6f74166c50f.png)
 
