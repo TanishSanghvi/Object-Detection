@@ -2,12 +2,14 @@
 
 ## ABOUT
 
-The project's objective was to identify attributes from diverse YouTube subtitles and thumbnails in order to develop and test pertinent hypotheses as well as a framework that can guide decision-making for those who generate digital content. 
-The framework would provide a summary or blueprint of the many features used in the videos, their relationships, and guidelines for combining them to increase engagement.
+- The project's objective was to identify attributes from diverse YouTube subtitles and thumbnails in order to develop and test pertinent hypotheses as well as a framework that can guide decision-making for those who generate digital content. 
+- The framework would provide a summary or blueprint of the many features used in the videos, their relationships, and guidelines for combining them to increase engagement.
 
 
 Following is an example of a thumbnail that was used:
 ![6EN7A23YtHI](https://user-images.githubusercontent.com/69982245/161476440-a494b83c-c997-4eb4-9511-a67684df4c16.jpg)
+
+- Thumbnails and captions of 150 such public videos were extracted using Python code and the YouTube API
 
 ## STEPS
 
