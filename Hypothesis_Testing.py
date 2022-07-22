@@ -12,7 +12,6 @@ from statsmodels.formula.api import ols
 from scipy.stats import pearsonr
 
 wno_df=pd.read_excel('CTR3and7_WNO_features.xlsx') 
-
 wno_df['z']=''
 
 #Enter the variables you want to test
