@@ -230,8 +230,7 @@ def get_chyron_band(img_path):
     gray=cv2.cvtColor(im_bgr, cv2.COLOR_RGB2GRAY)
     
     edged=cv2.Canny(gray, 127, 255,apertureSize = 3)
-#    contours, hierarchy = cv2.findContours(edged,  cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) 
-#    diag=cv2.drawContours(im,contours, -1, (0,255,0),2)
+
     try:
         cv2.HoughLines(edged,1,np.pi/180, 200)[0]
         return 1
@@ -594,7 +593,6 @@ for index, row in df.iterrows():
     
     df.loc[index,'title_text_num_talent'] = 1 if sum(talent_in_text)>1 else 0
     df.loc[index,'talent_count'] = talent_count
-#    mtv_wild_n_out.loc[index,'title_text_talent_match_thumb_pos'] = 
 
 df_final = pandas.merge(df,df2, how='left' , on ='video_id')
 df_final.to_excel(output_directory+'CTR3and7_WNO_features.xlsx',index=False)
