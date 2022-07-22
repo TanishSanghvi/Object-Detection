@@ -35,10 +35,13 @@ Following is an example of a thumbnail that was used:
 
 Following are the final decision trees for All (Caption + Thumbnail) variables, Caption variables and Thumbnail variables:
 
+### All Variables
 ![All Variables](https://user-images.githubusercontent.com/69982245/161476198-4263bdb9-6b86-4bf2-8535-e6f74166c50f.png)
 
+### Captiona Variables only
 ![Caption Variables](https://user-images.githubusercontent.com/69982245/161476235-e0460a2b-17be-47a1-9747-f02bb25cc840.png)
 
+### Thumbnail Variables only
 ![Thumbnail Variables](https://user-images.githubusercontent.com/69982245/161476241-3bb7f3fd-8b26-4a64-bafd-c7e4cb0df9b6.png)
 
 
