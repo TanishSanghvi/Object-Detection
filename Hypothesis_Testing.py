@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jul  2 16:45:13 2020
-
-@author: apple
-"""
 
 import pandas as pd
 import statsmodels.api as sm
