@@ -33,7 +33,7 @@ y['CTR day 7 Bins'][y['CTR day7']>y['CTR day7'].quantile(.66)]="3"
 y.drop(columns=["CTR day7"],inplace=True)
 X.fillna(0,inplace=True)
 
-TOP_FEATURES = 197
+TOP_FEATURES = 100
 
 forest = ExtraTreesClassifier(n_estimators=250, max_depth=5, random_state=1)
 forest.fit(X,y)
